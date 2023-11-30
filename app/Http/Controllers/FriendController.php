@@ -87,7 +87,7 @@ class FriendController extends Controller
             'accepted' => false
         ]);
 
-        return redirect()->route('dashboard');
+        return redirect()->route('users');
     }
 
     public function acceptFriend(User $user){

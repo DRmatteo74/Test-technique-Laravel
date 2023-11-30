@@ -6,9 +6,9 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Friend>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class FriendFactory extends Factory
+class MessageFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,11 +17,11 @@ class FriendFactory extends Factory
      */
     public function definition(): array
     {
-        $users = User::all()->random(2);
         return [
-            'user1_id' => $users[0],
-            'user2_id' => $users[1],
-            'accepted' => fake()->boolean,
+            'sender_id' => User::all()->random(),
+            'recipient_id' => User::all()->random(),
+            'message' => fake()->sentence,
+            'private' => fake()->boolean,
         ];
     }
 }
