@@ -25,6 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/users/{user}', [\App\Http\Controllers\FriendController::class, 'getUserData'])->name('users.data');
     Route::post('/users/search', [\App\Http\Controllers\FriendController::class, 'searchUsers'])->name("users.search");
     Route::post('/users/friend/{user}', [\App\Http\Controllers\FriendController::class, 'createFriends'])->name("users.create.friend");
+    Route::post('friend/accept/{user}', [\App\Http\Controllers\FriendController::class, 'acceptFriend'])->name("friend.accept");
+    Route::post('friend/deny/{user}', [\App\Http\Controllers\FriendController::class, 'denyFriend'])->name("friend.deny");
 });
 
 require __DIR__.'/auth.php';

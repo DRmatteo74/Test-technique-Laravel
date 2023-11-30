@@ -18,7 +18,7 @@ class FriendController extends Controller
                     ->get();
 
         $friendUsers = collect([]);
-        $acceptFriend = collect([]);
+        $usersWithPendingRequests = collect([]);
 
         foreach ($friends as $friend) {
             if($friend->accepted == true){
@@ -31,15 +31,16 @@ class FriendController extends Controller
                 }
             }else{
                 if ($friend->user1->id != $userId) {
-                    $acceptFriend->push($friend->user1);
+                    $usersWithPendingRequests->push($friend->user1);
                 }
             }
 
         }
 
         $uniqueFriendUsers = $friendUsers->unique('id')->values();
+        $usersWithPendingRequests = $usersWithPendingRequests->unique('id')->values();
 
-        return $uniqueFriendUsers;
+        return compact("uniqueFriendUsers", "usersWithPendingRequests");
     }
 
     public function getUsers($search = ""){
@@ -83,7 +84,30 @@ class FriendController extends Controller
         Friend::create([
             'user1_id' => Auth::id(),
             'user2_id' => $user->id,
+            'accepted' => false
         ]);
+
+        return redirect()->route('dashboard');
+    }
+
+    public function acceptFriend(User $user){
+        $userId = Auth::id();
+
+        Friend::where(function ($query) use ($userId, $user) {
+            $query->where('user1_id', $user->id)
+                ->where('user2_id', $userId);
+        })->update(['accepted' => true]);
+
+        return redirect()->route('dashboard');
+    }
+
+    public function denyFriend(User $user){
+        $userId = Auth::id();
+
+        Friend::where(function ($query) use ($userId, $user) {
+            $query->where('user1_id', $user->id)
+                ->where('user2_id', $userId);
+        })->delete();
 
         return redirect()->route('dashboard');
     }

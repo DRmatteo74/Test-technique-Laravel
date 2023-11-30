@@ -14,6 +14,10 @@ class Friend extends Model
         'user1_id', 'user2_id', 'accepted'
     ];
 
+    protected $casts = [
+        'accepted' => 'boolean'
+    ];
+
     public function user1() : BelongsTo
     {
         return $this->belongsTo(User::class, "user1_id", "id");

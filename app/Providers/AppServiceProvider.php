@@ -22,8 +22,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Facades\View::composer('components.friends-list', function ($view) {
-            $uniqueFriendUsers = FriendController::list();
-            $view->with('uniqueFriendUsers', $uniqueFriendUsers);
+            // Appeler la méthode list pour obtenir les valeurs
+            $friendListData = FriendController::list();
+
+            // Passer les valeurs à la vue
+            $view->with('uniqueFriendUsers', $friendListData['uniqueFriendUsers'])
+                ->with('usersWithPendingRequests', $friendListData['usersWithPendingRequests']);
         });
     }
 }
