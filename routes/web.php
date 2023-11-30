@@ -14,18 +14,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/', [\App\Http\Controllers\DashBoardController::class, 'show'])->middleware(['auth', 'verified'])->name("dashboard");
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/users', [\App\Http\Controllers\FriendController::class, 'getUsers'])->name('users');
+    Route::get('/users/{user}', [\App\Http\Controllers\FriendController::class, 'getUserData'])->name('users.data');
+    Route::post('/users/search', [\App\Http\Controllers\FriendController::class, 'searchUsers'])->name("users.search");
+    Route::post('/users/friend/{user}', [\App\Http\Controllers\FriendController::class, 'createFriends'])->name("users.create.friend");
 });
 
 require __DIR__.'/auth.php';
