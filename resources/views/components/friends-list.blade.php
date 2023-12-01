@@ -3,9 +3,9 @@
 <h2 class="font-semibold text-lg text-gray-800 dark:text-gray-200 leading-tight">
     {{ __("Demande d'amis") }}
 </h2>
-<ul role="list" class="divide-y divide-gray-300 dark:divide-gray-600 p-4">
+<ul role="list" class="divide-x overflow-auto divide-gray-300 dark:divide-gray-600 p-2 sm:p-4 sm:divide-y sm:divide-x-0 flex flex-row sm:block">
 @foreach($askFriends as $ask)
-    <li class="flex justify-between gap-x-6 py-5">
+    <li class="flex justify-between gap-x-6 py-3 sm:py-5 px-3 sm:px-0 min-w-max flex-shrink-0">
         <div class="flex min-w-0 gap-x-4">
             <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="{{ fake()->imageUrl }}" alt="">
             <div class="min-w-0 flex-auto">
@@ -36,16 +36,16 @@
 @endforeach
 </ul>
 
-<hr class="m-0 p-0 mx-6 mb-6">
+<hr class="m-0 p-0 mx-6 sm:mb-6 mb-3">
 @endif
 
 <h2 class="font-semibold text-lg text-gray-800 dark:text-gray-200 leading-tight">
     {{ __("Mes amis") }}
 </h2>
-<ul role="list" class="divide-y divide-gray-300 dark:divide-gray-600 p-4">
+<ul role="list" class="divide-x overflow-auto divide-gray-300 dark:divide-gray-600 p-2 sm:p-4 sm:divide-y sm:divide-x-0 flex flex-row sm:block">
     @foreach($friends as $friend)
         <li>
-            <a class="flex justify-between gap-x-6 py-3 my-2 text-start hover:bg-gray-500 px-4 rounded-lg {{ isset($currentFriend) && $friend->id == $currentFriend->id ? 'bg-gray-500' : '' }}" href="{{route($route, $friend)}}">
+            <a class="flex min-w-max flex-shrink-0 justify-between gap-x-6 py-3 sm:my-2 sm:mx-0 mx-2 text-start hover:bg-gray-500 px-4 rounded-lg {{ isset($currentFriend) && $friend->id == $currentFriend->id ? 'bg-gray-500' : '' }}" href="{{route($route, $friend)}}">
                 <div class="flex min-w-0 gap-x-4 items-center ">
                     <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="{{ fake()->imageUrl }}" alt="">
                     <div class="min-w-0 flex-auto">
