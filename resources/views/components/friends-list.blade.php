@@ -45,7 +45,7 @@
 <ul role="list" class="divide-y divide-gray-300 dark:divide-gray-600 p-4">
     @foreach($friends as $friend)
         <li>
-            <a class="flex justify-between gap-x-6 py-3 my-2 text-start hover:bg-gray-500 px-4 rounded-lg {{ isset($currentFriend) && $friend->id == $currentFriend->id ? 'bg-gray-500' : '' }}" href="{{route('dashboard.friend', $friend)}}">
+            <a class="flex justify-between gap-x-6 py-3 my-2 text-start hover:bg-gray-500 px-4 rounded-lg {{ isset($currentFriend) && $friend->id == $currentFriend->id ? 'bg-gray-500' : '' }}" href="{{route($route, $friend)}}">
                 <div class="flex min-w-0 gap-x-4 items-center ">
                     <img class="h-12 w-12 flex-none rounded-full bg-gray-50" src="{{ fake()->imageUrl }}" alt="">
                     <div class="min-w-0 flex-auto">

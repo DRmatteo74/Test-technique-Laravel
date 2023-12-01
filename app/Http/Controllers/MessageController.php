@@ -34,6 +34,43 @@ class MessageController extends Controller
             'private' => true
         ]);
 
-        return redirect()->route('dashboard');
+        return redirect()->route('private.message.friend', $user);
+    }
+
+    public function showPrivate(){
+        $friends = FriendController::list();
+        return view('private-message', [
+            'friends' => $friends["uniqueFriendUsers"],
+            'askFriends' => $friends["usersWithPendingRequests"]
+        ]);
+    }
+
+    public function showPrivateFriend(User $user){
+        $friends = FriendController::list();
+
+        $authenticatedUserId = Auth::id();
+
+        $messages = Message::where(function ($query) use ($authenticatedUserId, $user) {
+            $query->where('sender_id', $authenticatedUserId)
+                ->where('recipient_id', $user->id)
+                ->where("private", true);
+        })->orWhere(function ($query) use ($authenticatedUserId, $user) {
+            $query->where('sender_id', $user->id)
+                ->where('recipient_id', $authenticatedUserId)
+                ->where("private", true);
+        })->orderBy('created_at', 'desc')->get();
+
+        $isFriend = $friends["uniqueFriendUsers"]->contains('id', $user->id);
+
+        if(!$isFriend){
+            return redirect(route('private.message'));
+        }
+
+        return view('private-message', [
+            'friend' => $user,
+            'messages' => $messages,
+            'friends' => $friends["uniqueFriendUsers"],
+            'askFriends' => $friends["usersWithPendingRequests"]
+        ]);
     }
 }

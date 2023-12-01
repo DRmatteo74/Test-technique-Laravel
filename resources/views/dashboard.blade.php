@@ -19,9 +19,9 @@
         <div class="flex w-full flex-row flex-wrap flex-1 content-start gap-6">
             <div class="py-6 px-5 ms-8 bg-white dark:bg-gray-800 shadow-sm sm:rounded-lg h-fit">
                 @if(isset($friend))
-                    <x-friends-list :friends="$friends" :askFriends="$askFriends" :currentFriend="$friend"/>
+                    <x-friends-list :friends="$friends" :askFriends="$askFriends" :currentFriend="$friend" :route="'dashboard.friend'"/>
                 @else
-                    <x-friends-list :friends="$friends" :askFriends="$askFriends"/>
+                    <x-friends-list :friends="$friends" :askFriends="$askFriends" :route="'dashboard.friend'"/>
                 @endif
             </div>
             <div class="flex-grow max-w-7xl sm:px-6 lg:px-8">

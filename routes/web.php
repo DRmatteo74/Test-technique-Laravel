@@ -30,6 +30,10 @@ Route::middleware('auth')->group(function () {
 
     Route::post('dashboard/{user}', [\App\Http\Controllers\MessageController::class, 'send'])->name("dashboard.send");
     Route::get('dashboard/{user}', [\App\Http\Controllers\DashBoardController::class, 'showFriend'])->name("dashboard.friend");
+
+    Route::get('private/message', [\App\Http\Controllers\MessageController::class, "showPrivate"])->name("private.message");
+    Route::get("private/message/{user}", [\App\Http\Controllers\MessageController::class, "showPrivateFriend"])->name("private.message.friend");
+    Route::post('private/message/{user}', [\App\Http\Controllers\MessageController::class, "sendPrivate"])->name("private.message.send");
 });
 
 require __DIR__.'/auth.php';

@@ -18,6 +18,9 @@
                     <x-nav-link :href="route('users')" :active="request()->routeIs('users') or request()->routeIs('users.search')">
                         {{ __('Ajouter des Amis') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('private.message')" :active="request()->routeIs('private.message') or request()->routeIs('private.message.friend')">
+                        {{ __('Message privé') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -75,6 +78,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('users')" :active="request()->routeIs('users') or request()->routeIs('users.search')">
                 {{ __('Ajouter des Amis') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('private.message')" :active="request()->routeIs('private.message') or request()->routeIs('private.message.friend')">
+                {{ __('Message privé') }}
             </x-responsive-nav-link>
         </div>
 
